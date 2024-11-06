@@ -85,15 +85,21 @@ class _MyHomePageState extends State<MyHomePage> {
                               "Second floor, black door to the right.",
                           dropoffSellerNotes:
                               "Fragile content - please handle the box with care.",
-                          manifestItemNames: ["Bow tie"],
-                          manifestItemQuantities: [1],
-                          manifestItemSizes: ["small"],
-                          manifestItemLengths: [20],
-                          manifestItemHeights: [20],
-                          manifestItemDepths: [20],
-                          manifestItemPrices: [100],
-                          manifestItemWeights: [300],
-                          manifestItemVatPercentages: [1250000],
+                          manifestItems: [
+                            ManifestItem(
+                              name: "Bow tie",
+                              quantity: 1,
+                              size: "small",
+                              price: 100,
+                              dimensions: DimensionEntity(
+                                length: 20,
+                                height: 20,
+                                depth: 20,
+                              ),
+                              weight: 300,
+                              vatPercentage: 1250000,
+                            ),
+                          ],
                           merchantAccountEmail: 'sabikrahat72428@gmail.com',
                         );
                         setState(() {});

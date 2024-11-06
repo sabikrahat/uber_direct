@@ -13,16 +13,18 @@
 // }
 
 import 'dart:convert';
+
 import 'dimension.dart';
 
 class ManifestItem {
   final String name;
   final int quantity;
   final String size;
-  final double price;
+  final int price;
   final DimensionEntity dimensions;
-  final bool mustBeUpright;
-  final double weight;
+  bool? mustBeUpright;
+  final int weight;
+  int? vatPercentage;
 
   ManifestItem({
     required this.name,
@@ -30,8 +32,9 @@ class ManifestItem {
     required this.size,
     required this.price,
     required this.dimensions,
-    required this.mustBeUpright,
+    this.mustBeUpright,
     required this.weight,
+    this.vatPercentage,
   });
 
   factory ManifestItem.fromJson(Map<String, dynamic> json) {
@@ -39,22 +42,17 @@ class ManifestItem {
       name: json[_Json.name] as String,
       quantity: json[_Json.quantity] as int,
       size: json[_Json.size] as String,
-      price: (json[_Json.price] as num).toDouble(),
+      price: (json[_Json.price] as num).toInt(),
       dimensions: DimensionEntity.fromJson(
           json[_Json.dimensions] as Map<String, dynamic>),
-      mustBeUpright: json[_Json.mustBeUpright] as bool,
-      weight: (json[_Json.weight] as num).toDouble(),
+      mustBeUpright: json[_Json.mustBeUpright] as bool?,
+      weight: (json[_Json.weight] as num).toInt(),
+      vatPercentage: json[_Json.vatPercentage] as int?,
     );
   }
 
   factory ManifestItem.fromRawJson(String str) =>
       ManifestItem.fromJson(json.decode(str));
-
-  // static List<ManifestItem> fromJsonList(List<Map<String, dynamic>> jsonList) =>
-  //     jsonList.map((e) => ManifestItem.fromJson(e)).toList();
-
-  // static List<Map<String, dynamic>> toJsonList(List<ManifestItem> list) =>
-  //     list.map((e) => e.toJson()).toList();
 
   Map<String, dynamic> toJson() {
     return {
@@ -65,7 +63,8 @@ class ManifestItem {
       _Json.dimensions: dimensions.toJson(),
       _Json.mustBeUpright: mustBeUpright,
       _Json.weight: weight,
-    };
+      _Json.vatPercentage: vatPercentage,
+    }..removeWhere((_, v) => v == null);
   }
 
   String toRawJson() => json.encode(toJson());
@@ -82,4 +81,5 @@ class _Json {
   static const String dimensions = 'dimensions';
   static const String mustBeUpright = 'must_be_upright';
   static const String weight = 'weight';
+  static const String vatPercentage = 'vat_percentage';
 }

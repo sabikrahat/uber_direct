@@ -5,9 +5,9 @@
 // }
 
 class DimensionEntity {
-  final double length;
-  final double height;
-  final double depth;
+  final int length;
+  final int height;
+  final int depth;
 
   DimensionEntity({
     required this.length,
@@ -17,9 +17,9 @@ class DimensionEntity {
 
   factory DimensionEntity.fromJson(Map<String, dynamic> json) {
     return DimensionEntity(
-      length: (json[_Json.length] as num).toDouble(),
-      height: (json[_Json.height] as num).toDouble(),
-      depth: (json[_Json.depth] as num).toDouble(),
+      length: (json[_Json.length] as num).toInt(),
+      height: (json[_Json.height] as num).toInt(),
+      depth: (json[_Json.depth] as num).toInt(),
     );
   }
 

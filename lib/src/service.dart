@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'model/quote/enum.dart';
 
-import 'error/error.dart';
-import 'model/delivery/delivery.dart';
-import 'model/quote/delivery_quote.dart';
+import '../uber_direct.dart';
+import 'model/quote/enum.dart';
 
 class UberDirectClient {
   final String uberClientId;
@@ -140,15 +138,16 @@ class UberDirectClient {
     required String dropoffPhoneNumber,
     required String dropoffNotes,
     required String dropoffSellerNotes,
-    required List<String> manifestItemNames,
-    required List<int> manifestItemQuantities,
-    required List<String> manifestItemSizes,
-    required List<int> manifestItemLengths,
-    required List<int> manifestItemHeights,
-    required List<int> manifestItemDepths,
-    required List<int> manifestItemPrices,
-    required List<int> manifestItemWeights,
-    required List<int> manifestItemVatPercentages,
+    required List<ManifestItem> manifestItems,
+    // required List<String> manifestItemNames,
+    // required List<int> manifestItemQuantities,
+    // required List<String> manifestItemSizes,
+    // required List<int> manifestItemLengths,
+    // required List<int> manifestItemHeights,
+    // required List<int> manifestItemDepths,
+    // required List<int> manifestItemPrices,
+    // required List<int> manifestItemWeights,
+    // required List<int> manifestItemVatPercentages,
     DeliverableAction deliverableAction =
         DeliverableAction.deliverableActionMeetAtDoor,
     int? manifestTotalValue, // in cents
@@ -161,15 +160,18 @@ class UberDirectClient {
     String? externalId,
   }) async {
     try {
-      if (manifestItemNames.length != manifestItemQuantities.length ||
-          manifestItemNames.length != manifestItemSizes.length ||
-          manifestItemNames.length != manifestItemLengths.length ||
-          manifestItemNames.length != manifestItemHeights.length ||
-          manifestItemNames.length != manifestItemDepths.length ||
-          manifestItemNames.length != manifestItemPrices.length ||
-          manifestItemNames.length != manifestItemWeights.length ||
-          manifestItemNames.length != manifestItemVatPercentages.length) {
-        throw ArgumentError('Manifest item lists must be of equal length');
+      // if (manifestItemNames.length != manifestItemQuantities.length ||
+      //     manifestItemNames.length != manifestItemSizes.length ||
+      //     manifestItemNames.length != manifestItemLengths.length ||
+      //     manifestItemNames.length != manifestItemHeights.length ||
+      //     manifestItemNames.length != manifestItemDepths.length ||
+      //     manifestItemNames.length != manifestItemPrices.length ||
+      //     manifestItemNames.length != manifestItemWeights.length ||
+      //     manifestItemNames.length != manifestItemVatPercentages.length) {
+      //   throw ArgumentError('Manifest item lists must be of equal length');
+      // }
+      if (manifestItems.isEmpty) {
+        throw ArgumentError('Manifest items cannot be empty');
       }
       final token = await _token;
       final response = await _client!.post(
@@ -181,50 +183,35 @@ class UberDirectClient {
           'Authorization': 'Bearer $token',
         },
         body: jsonEncode({
-          "pickup_name": pickupName,
-          "pickup_business_name": pickupBusinessName ?? pickupName,
-          "pickup_latitude": pickupLatitude,
-          "pickup_longitude": pickupLongitude,
-          "pickup_address": pickupAddress,
-          "pickup_phone_number": pickupPhoneNumber,
-          "dropoff_name": dropoffName,
-          "dropoff_latitude": dropoffLatitude,
-          "dropoff_longitude": dropoffLongitude,
-          "dropoff_address": dropoffAddress,
-          "dropoff_phone_number": dropoffPhoneNumber,
-          "dropoff_notes": dropoffNotes,
-          "dropoff_seller_notes": dropoffSellerNotes,
-          "manifest_items": List.generate(
-            manifestItemNames.length,
-            (i) => {
-              "name": manifestItemNames[i],
-              "quantity": manifestItemQuantities[i],
-              "size": manifestItemSizes[i],
-              "dimensions": {
-                "length": manifestItemLengths[i],
-                "height": manifestItemHeights[i],
-                "depth": manifestItemDepths[i]
-              },
-              "price": manifestItemPrices[i],
-              "weight": manifestItemWeights[i],
-              "vat_percentage": manifestItemVatPercentages[i]
-            },
-          ),
-          "deliverable_action": deliverableAction.name,
-          "manifest_total_value": manifestTotalValue ??
-              manifestItemPrices.fold<int>(0, (a, b) => a + b),
-          "tip": tip,
-          "return_notes": returnNotes,
-          "external_user_info": {
-            "merchant_account": {
-              "account_created_at": mercentAccountCreated?.toIso8601String() ??
-                  DateTime.now().toIso8601String(),
-              "email": merchantAccountEmail,
-            },
-            "device": {"id": deviceId ?? 'f2bdcb36-f86b-4197-89f8-54c72f98d24b'}
+        "pickup_name": pickupName,
+        "pickup_business_name": pickupBusinessName ?? pickupName,
+        "pickup_latitude": pickupLatitude,
+        "pickup_longitude": pickupLongitude,
+        "pickup_address": pickupAddress,
+        "pickup_phone_number": pickupPhoneNumber,
+        "dropoff_name": dropoffName,
+        "dropoff_latitude": dropoffLatitude,
+        "dropoff_longitude": dropoffLongitude,
+        "dropoff_address": dropoffAddress,
+        "dropoff_phone_number": dropoffPhoneNumber,
+        "dropoff_notes": dropoffNotes,
+        "dropoff_seller_notes": dropoffSellerNotes,
+        "manifest_items": manifestItems.map((e) => e.toJson()).toList(),
+        "deliverable_action": deliverableAction.name,
+        "manifest_total_value": manifestTotalValue ??
+            manifestItems.fold<int>(0, (a, b) => a + b.price.toInt()),
+        "tip": tip,
+        "return_notes": returnNotes,
+        "external_user_info": {
+          "merchant_account": {
+            "account_created_at": mercentAccountCreated?.toIso8601String() ??
+                DateTime.now().toIso8601String(),
+            "email": merchantAccountEmail,
           },
-          "external_id": externalId ?? '1234567890',
-        }),
+          "device": {"id": deviceId ?? 'f2bdcb36-f86b-4197-89f8-54c72f98d24b'}
+        },
+        "external_id": externalId ?? '1234567890',
+      }),
       );
 
       _handleErrorResponse(response);
