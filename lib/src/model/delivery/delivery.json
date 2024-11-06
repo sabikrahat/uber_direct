@@ -1,0 +1,104 @@
+{
+    "id": "del_PrY4Clm6S12I-zTI9XD5vQ",
+    "quote_id": "dqt_PrY4Clm6S12I-zTI9XD5vQ",
+    "status": "pending",
+    "complete": false,
+    "kind": "delivery",
+    "pickup": {
+        "name": "Store Name",
+        "phone_number": "+61412345678",
+        "address": "85 King Georges Rd, Wiley Park NSW 2195",
+        "detailed_address": {
+            "street_address_1": "85 King Georges Rd",
+            "street_address_2": "",
+            "city": "Wiley Park",
+            "state": "",
+            "zip_code": "2195",
+            "country": "AU"
+        },
+        "notes": "",
+        "location": {
+            "lat": -33.93567,
+            "lng": 151.04146
+        }
+    },
+    "dropoff": {
+        "name": "AF Motors Automotive Services",
+        "phone_number": "+61412345678",
+        "address": "27 Moxon Rd, Punchbowl NSW 2196",
+        "detailed_address": {
+            "street_address_1": "27 Moxon Rd",
+            "street_address_2": "",
+            "city": "Punchbowl",
+            "state": "NSW",
+            "zip_code": "2196",
+            "country": "AU"
+        },
+        "notes": "Second floor, black door to the right.",
+        "location": {
+            "lat": -33.93567,
+            "lng": 151.04146
+        }
+    },
+    "manifest": {
+        "description": "1 X Bow tie\n",
+        "total_value": 1000
+    },
+    "manifest_items": [
+        {
+            "name": "Bow tie",
+            "quantity": 1,
+            "size": "small",
+            "price": 100,
+            "dimensions": {
+                "length": 20,
+                "height": 20,
+                "depth": 20
+            },
+            "must_be_upright": false,
+            "weight": 300
+        }
+    ],
+    "created": "2024-11-02T16:52:40.586Z",
+    "updated": "1970-01-01T00:00:00Z",
+    "pickup_ready": "2024-11-02T16:52:40Z",
+    "pickup_deadline": "2024-11-02T17:12:40Z",
+    "dropoff_ready": "2024-11-02T16:52:40Z",
+    "dropoff_deadline": "2024-11-02T18:04:57Z",
+    "pickup_eta": "2024-11-02T16:57:40Z",
+    "dropoff_eta": "2024-11-02T17:28:58Z",
+    "related_deliveries": null,
+    "fee": 1100,
+    "currency": "aud",
+    "tracking_url": "https://delivery.uber.com/au/orders/3eb6380a-59ba-4b5d-88fb-34c8f570f9bd?tenancyOverride=uber%2Ftesting%2Fdirect%2F36da16fa-6bd2-588b-bf07-cb859d8f8b72",
+    "undeliverable_action": "",
+    "courier_imminent": false,
+    "courier": null,
+    "live_mode": false,
+    "undeliverable_reason": "",
+    "uuid": "3EB6380A59BA4B5D88FB34C8F570F9BD",
+    "fences": null,
+    "external_id": "1234567890",
+    "items_acquired": null,
+    "state_changes": null,
+    "deliverable_action": "deliverable_action_meet_at_door",
+    "return": {
+        "name": "Store Name",
+        "phone_number": "+61412345678",
+        "address": "85 King Georges Rd, Wiley Park NSW 2195",
+        "detailed_address": {
+            "street_address_1": "85 King Georges Rd",
+            "street_address_2": "",
+            "city": "Wiley Park",
+            "state": "",
+            "zip_code": "2195",
+            "country": "AU"
+        },
+        "notes": "Please meet store members at the counter to scan and verify the return of the order.",
+        "location": {
+            "lat": -33.93567,
+            "lng": 151.04146
+        }
+    },
+    "refunds": null
+}
