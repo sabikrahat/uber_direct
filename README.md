@@ -26,7 +26,7 @@ or,
 dependencies:
   uber_direct:
     git: 
-      url: git://github.com/sabikrahat/uber_direct.git
+      url: https://github.com/sabikrahat/uber_direct.git
       ref: main # branch name
 ```
 
