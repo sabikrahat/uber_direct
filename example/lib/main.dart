@@ -81,10 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           dropoffLongitude: 151.057320,
                           dropoffAddress: "27 Moxon Rd, Punchbowl NSW 2196",
                           dropoffPhoneNumber: "+61412345678",
-                          dropoffNotes:
-                              "Second floor, black door to the right.",
-                          dropoffSellerNotes:
-                              "Fragile content - please handle the box with care.",
                           manifestItems: [
                             ManifestItem(
                               name: "Bow tie",
@@ -100,7 +96,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               vatPercentage: 1250000,
                             ),
                           ],
-                          merchantAccountEmail: 'sabikrahat72428@gmail.com',
                         );
                         setState(() {});
                         EasyLoading.dismiss();
@@ -148,11 +143,9 @@ class _MyHomePageState extends State<MyHomePage> {
               pickupAddress: "85 King Georges Rd, Wiley Park NSW 2195",
               pickupLatitude: -33.935670,
               pickupLongitude: 151.041460,
-              pickupPhoneNumber: "+61412345678",
               dropoffAddress: "27 Moxon Rd, Punchbowl NSW 2196",
               dropoffLatitude: -33.927040,
               dropoffLongitude: 151.057320,
-              dropoffPhoneNumber: "+61412345678",
             );
             setState(() {});
             EasyLoading.dismiss();
